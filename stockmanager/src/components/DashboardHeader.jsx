@@ -1,4 +1,4 @@
-import { CalendarDays, Search } from 'lucide-react'
+import { CalendarDays, RotateCcw, Search } from 'lucide-react'
 
 const formattedDate = new Intl.DateTimeFormat('pt-BR', {
   day: '2-digit',
@@ -6,7 +6,11 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
   year: 'numeric',
 }).format(new Date())
 
-function DashboardHeader({ title = 'Dashboard', subtitle = 'Visão geral do almoxarifado' }) {
+function DashboardHeader({
+  title = 'Dashboard',
+  subtitle = 'Visão geral do almoxarifado',
+  onRestoreDemo,
+}) {
   return (
     <header className="topbar">
       <div className="topbar-title">
@@ -23,6 +27,16 @@ function DashboardHeader({ title = 'Dashboard', subtitle = 'Visão geral do almo
           <CalendarDays size={17} />
           <span>{formattedDate}</span>
         </div>
+        <button
+          className="restore-data-button"
+          type="button"
+          onClick={onRestoreDemo}
+          aria-label="Restaurar demonstração"
+          title="Restaurar dados de demonstração"
+        >
+          <RotateCcw size={15} />
+          <span>Restaurar demonstração</span>
+        </button>
         <div className="header-admin">
           <div className="user-avatar" aria-hidden="true">AD</div>
           <span>Administrador</span>

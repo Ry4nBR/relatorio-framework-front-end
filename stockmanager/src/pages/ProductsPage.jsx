@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Plus, Search, X } from 'lucide-react'
 import AppSidebar from '../components/AppSidebar'
 import DashboardHeader from '../components/DashboardHeader'
+import PersistenceNotice from '../components/PersistenceNotice'
 import ProductFormModal from '../components/ProductFormModal'
 import ProductsTable from '../components/ProductsTable'
 import { productCategories } from '../data/categories'
@@ -16,6 +17,9 @@ function ProductsPage({
   setNextProductId,
   activePage,
   onNavigate,
+  onRestoreDemo,
+  storageError,
+  storageNotice,
 }) {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
@@ -82,8 +86,13 @@ function ProductsPage({
     <div className="app-shell">
       <AppSidebar activePage={activePage} onNavigate={onNavigate} />
       <main className="main-panel">
-        <DashboardHeader title="Produtos" subtitle="Cadastro e gerenciamento do estoque" />
+        <DashboardHeader
+          title="Produtos"
+          subtitle="Cadastro e gerenciamento do estoque"
+          onRestoreDemo={onRestoreDemo}
+        />
         <div className="dashboard-content products-content">
+          <PersistenceNotice error={storageError} notice={storageNotice} />
           <section className="products-intro">
             <div>
               <span className="eyebrow">ALMOXARIFADO</span>

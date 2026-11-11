@@ -2,13 +2,22 @@ import { ArrowDownToLine, ArrowLeftRight, Boxes, Package, TriangleAlert } from '
 import AppSidebar from '../components/AppSidebar'
 import DashboardHeader from '../components/DashboardHeader'
 import InventoryTable from '../components/InventoryTable'
+import PersistenceNotice from '../components/PersistenceNotice'
 import RecentMovements from '../components/RecentMovements'
 import SummaryCard from '../components/SummaryCard'
 import StockAlerts from '../components/StockAlerts'
 import { useInventorySummary } from '../hooks/useInventorySummary'
 import '../styles/dashboard.css'
 
-function DashboardPage({ products, movements, activePage, onNavigate }) {
+function DashboardPage({
+  products,
+  movements,
+  activePage,
+  onNavigate,
+  onRestoreDemo,
+  storageError,
+  storageNotice,
+}) {
   const summary = useInventorySummary(products)
   const lowStockItems = products.filter((item) => item.quantity <= item.minimum)
 
@@ -47,8 +56,9 @@ function DashboardPage({ products, movements, activePage, onNavigate }) {
     <div className="app-shell" id="dashboard">
       <AppSidebar activePage={activePage} onNavigate={onNavigate} />
       <main className="main-panel">
-        <DashboardHeader />
+        <DashboardHeader onRestoreDemo={onRestoreDemo} />
         <div className="dashboard-content">
+          <PersistenceNotice error={storageError} notice={storageNotice} />
           <section className="welcome-section">
             <div className="welcome-heading">
               <span className="eyebrow">RESUMO DO ALMOXARIFADO</span>

@@ -4,6 +4,7 @@ import AppSidebar from '../components/AppSidebar'
 import DashboardHeader from '../components/DashboardHeader'
 import MovementFormModal from '../components/MovementFormModal'
 import MovementsTable from '../components/MovementsTable'
+import PersistenceNotice from '../components/PersistenceNotice'
 import '../styles/dashboard.css'
 import '../styles/products.css'
 import '../styles/movements.css'
@@ -17,6 +18,9 @@ function MovementsPage({
   setNextMovementId,
   activePage,
   onNavigate,
+  onRestoreDemo,
+  storageError,
+  storageNotice,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const entries = movements.filter((movement) => movement.type === 'entrada').length
@@ -55,8 +59,13 @@ function MovementsPage({
     <div className="app-shell">
       <AppSidebar activePage={activePage} onNavigate={onNavigate} />
       <main className="main-panel">
-        <DashboardHeader title="Movimentações" subtitle="Histórico de entradas e saídas do estoque" />
+        <DashboardHeader
+          title="Movimentações"
+          subtitle="Histórico de entradas e saídas do estoque"
+          onRestoreDemo={onRestoreDemo}
+        />
         <div className="dashboard-content movements-content">
+          <PersistenceNotice error={storageError} notice={storageNotice} />
           <section className="products-intro">
             <div>
               <span className="eyebrow">ALMOXARIFADO</span>

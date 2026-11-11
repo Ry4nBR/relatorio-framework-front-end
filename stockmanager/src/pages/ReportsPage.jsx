@@ -10,6 +10,7 @@ import {
 import AppSidebar from '../components/AppSidebar'
 import DashboardHeader from '../components/DashboardHeader'
 import MovementsTable from '../components/MovementsTable'
+import PersistenceNotice from '../components/PersistenceNotice'
 import ReportsCharts from '../components/ReportsCharts'
 import SummaryCard from '../components/SummaryCard'
 import { downloadMovementsCsv, filterMovementsByPeriod, getCategoryChartData, getMovementChartData } from '../data/reportUtils'
@@ -18,7 +19,15 @@ import '../styles/products.css'
 import '../styles/movements.css'
 import '../styles/reports.css'
 
-function ReportsPage({ products, movements, activePage, onNavigate }) {
+function ReportsPage({
+  products,
+  movements,
+  activePage,
+  onNavigate,
+  onRestoreDemo,
+  storageError,
+  storageNotice,
+}) {
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
 
@@ -81,8 +90,13 @@ function ReportsPage({ products, movements, activePage, onNavigate }) {
     <div className="app-shell">
       <AppSidebar activePage={activePage} onNavigate={onNavigate} />
       <main className="main-panel">
-        <DashboardHeader title="Relatórios" subtitle="Indicadores e histórico do almoxarifado" />
+        <DashboardHeader
+          title="Relatórios"
+          subtitle="Indicadores e histórico do almoxarifado"
+          onRestoreDemo={onRestoreDemo}
+        />
         <div className="dashboard-content reports-content">
+          <PersistenceNotice error={storageError} notice={storageNotice} />
           <section className="products-intro">
             <div>
               <span className="eyebrow">ANÁLISE DO ESTOQUE</span>

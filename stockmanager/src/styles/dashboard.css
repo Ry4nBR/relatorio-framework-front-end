@@ -237,6 +237,29 @@
   white-space: nowrap;
 }
 
+.restore-data-button {
+  display: inline-flex;
+  min-height: 32px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  background: #fff;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.restore-data-button:hover {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
 .user-avatar {
   display: grid;
   width: 34px;
@@ -255,6 +278,23 @@
   width: min(100%, 1440px);
   margin: 0 auto;
   padding: 27px 34px 38px;
+}
+
+.persistence-notice {
+  padding: 10px 13px;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.persistence-notice-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
 }
 
 .welcome-section {
@@ -875,6 +915,19 @@ h2 {
 
   .topbar-actions {
     gap: 10px;
+  }
+
+  .restore-data-button {
+    width: 32px;
+    padding: 0;
+  }
+
+  .restore-data-button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
 
   .search-field {
