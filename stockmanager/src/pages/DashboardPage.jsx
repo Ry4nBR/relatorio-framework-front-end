@@ -5,11 +5,10 @@ import InventoryTable from '../components/InventoryTable'
 import RecentMovements from '../components/RecentMovements'
 import SummaryCard from '../components/SummaryCard'
 import StockAlerts from '../components/StockAlerts'
-import { recentMovements } from '../data/inventory'
 import { useInventorySummary } from '../hooks/useInventorySummary'
 import '../styles/dashboard.css'
 
-function DashboardPage({ products, activePage, onNavigate }) {
+function DashboardPage({ products, movements, activePage, onNavigate }) {
   const summary = useInventorySummary(products)
   const lowStockItems = products.filter((item) => item.quantity <= item.minimum)
 
@@ -37,7 +36,7 @@ function DashboardPage({ products, activePage, onNavigate }) {
     },
     {
       label: 'Movimentações realizadas',
-      value: recentMovements.length,
+      value: movements.length,
       caption: 'Entradas e saídas recentes',
       icon: ArrowLeftRight,
       tone: 'purple',
@@ -55,9 +54,13 @@ function DashboardPage({ products, activePage, onNavigate }) {
               <span className="eyebrow">RESUMO DO ALMOXARIFADO</span>
               <span className="welcome-date">Acompanhe seus produtos e movimentações em um só lugar.</span>
             </div>
-            <button className="primary-button" type="button">
+            <button
+              className="primary-button"
+              type="button"
+              onClick={() => onNavigate('movements')}
+            >
               <ArrowDownToLine size={17} />
-              Registrar entrada
+              Registrar movimentação
             </button>
           </section>
 
@@ -82,7 +85,10 @@ function DashboardPage({ products, activePage, onNavigate }) {
             </section>
             <div className="side-panels">
               <StockAlerts items={lowStockItems} />
-              <RecentMovements movements={recentMovements} />
+              <RecentMovements
+                movements={movements.slice(0, 4)}
+                onViewAll={() => onNavigate('movements')}
+              />
             </div>
           </div>
         </div>

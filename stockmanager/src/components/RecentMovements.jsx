@@ -1,6 +1,7 @@
 import { ArrowDownLeft, ArrowRight, ArrowUpRight, Clock3 } from 'lucide-react'
+import { formatDateTime } from '../data/productUtils'
 
-function RecentMovements({ movements }) {
+function RecentMovements({ movements, onViewAll }) {
   return (
     <section className="content-panel movements-panel" id="movimentacoes" aria-labelledby="movements-title">
       <div className="section-heading">
@@ -11,9 +12,9 @@ function RecentMovements({ movements }) {
             <p>Entradas e saídas recentes</p>
           </div>
         </div>
-        <a className="panel-link panel-link-heading" href="#movimentacoes">
+        <button className="panel-link panel-link-heading" type="button" onClick={onViewAll}>
           Ver todas <ArrowRight size={15} />
-        </a>
+        </button>
       </div>
       <ul className="movement-list">
         {movements.map((movement) => {
@@ -27,10 +28,10 @@ function RecentMovements({ movements }) {
               </span>
               <span className="movement-copy">
                 <strong>{movement.product}</strong>
-                <span>{movement.person} · {movement.time}</span>
+                <span>{formatDateTime(movement.date)}</span>
               </span>
               <span className={`movement-quantity ${isEntry ? 'quantity-entry' : 'quantity-exit'}`}>
-                {isEntry ? '+' : '−'}{movement.quantity}
+                {isEntry ? '+' : '−'}{movement.quantity} {movement.unit}
               </span>
             </li>
           )

@@ -9,7 +9,7 @@ import {
 const navigationItems = [
   { label: 'Dashboard', icon: LayoutDashboard, page: 'dashboard' },
   { label: 'Produtos', icon: Package, page: 'products' },
-  { label: 'Movimentações', icon: ArrowLeftRight, href: '#movimentacoes' },
+  { label: 'Movimentações', icon: ArrowLeftRight, page: 'movements' },
   { label: 'Relatórios', icon: BarChart3, href: '#relatorios' },
 ]
 
