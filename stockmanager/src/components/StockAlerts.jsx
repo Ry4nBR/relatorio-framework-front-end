@@ -17,7 +17,7 @@ function StockAlerts({ items }) {
       {items.length > 0 ? (
         <ul className="alert-list">
           {items.map((item) => (
-            <li className="alert-item" key={item.id}>
+            <li className={`alert-item${getStockStatus(item) === 'out' ? ' alert-item-out' : ''}`} key={item.id}>
               <span className="alert-item-icon"><AlertTriangle size={16} /></span>
               <span className="alert-item-copy">
                 <strong>{item.name}</strong>

@@ -10,7 +10,7 @@ const navigationItems = [
   { label: 'Dashboard', icon: LayoutDashboard, page: 'dashboard' },
   { label: 'Produtos', icon: Package, page: 'products' },
   { label: 'Movimentações', icon: ArrowLeftRight, page: 'movements' },
-  { label: 'Relatórios', icon: BarChart3, href: '#relatorios' },
+  { label: 'Relatórios', icon: BarChart3, page: 'reports' },
 ]
 
 function AppSidebar({ activePage, onNavigate }) {

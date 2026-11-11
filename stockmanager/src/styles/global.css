@@ -18,6 +18,14 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+}
+
+.page-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  color: #64748b;
+  font-size: 13px;
   margin: 0;
 }
 

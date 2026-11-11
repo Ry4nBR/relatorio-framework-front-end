@@ -37,7 +37,7 @@ function ProductsTable({ products, onEdit, onDelete }) {
             const status = getStockStatus(product)
 
             return (
-              <tr key={product.id}>
+              <tr className={status === 'out' ? 'product-row-out' : undefined} key={product.id}>
                 <td className="product-id">#{product.id}</td>
                 <td className="product-name-cell">{product.name}</td>
                 <td>{product.category}</td>

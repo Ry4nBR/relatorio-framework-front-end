@@ -156,6 +156,14 @@
   border-bottom: 0;
 }
 
+.products-table .product-row-out td {
+  background: #fff8f8;
+}
+
+.products-table .product-row-out .product-name-cell {
+  color: #b91c1c !important;
+}
+
 .product-id {
   color: #94a3b8 !important;
   font-variant-numeric: tabular-nums;

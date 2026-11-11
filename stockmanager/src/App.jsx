@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import DashboardPage from './pages/DashboardPage'
 import MovementsPage from './pages/MovementsPage'
 import ProductsPage from './pages/ProductsPage'
 import { inventoryItems, recentMovements } from './data/inventory'
+
+const LazyReportsPage = lazy(() => import('./pages/ReportsPage'))
 
 function App() {
   const [products, setProducts] = useState(inventoryItems)
@@ -40,6 +42,19 @@ function App() {
         activePage={activePage}
         onNavigate={setActivePage}
       />
+    )
+  }
+
+  if (activePage === 'reports') {
+    return (
+      <Suspense fallback={<div className="page-loading" role="status">Carregando relatórios...</div>}>
+        <LazyReportsPage
+          products={products}
+          movements={movements}
+          activePage={activePage}
+          onNavigate={setActivePage}
+        />
+      </Suspense>
     )
   }
 

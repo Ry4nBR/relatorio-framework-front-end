@@ -24,7 +24,7 @@ function InventoryTable({ items }) {
             const status = getStockStatus(item)
 
             return (
-              <tr key={item.id}>
+              <tr className={status === 'out' ? 'inventory-row-out' : undefined} key={item.id}>
                 <td>
                   <div className="material-cell">
                     <span className={`material-avatar material-avatar-${item.color}`}>
