@@ -1,42 +1,45 @@
-import { ArrowDownToLine, ArrowUpFromLine, Boxes, Package, TriangleAlert } from 'lucide-react'
+import { ArrowDownToLine, ArrowLeftRight, Boxes, Package, TriangleAlert } from 'lucide-react'
 import AppSidebar from '../components/AppSidebar'
 import DashboardHeader from '../components/DashboardHeader'
 import InventoryTable from '../components/InventoryTable'
+import RecentMovements from '../components/RecentMovements'
 import SummaryCard from '../components/SummaryCard'
-import { inventoryItems } from '../data/inventory'
+import StockAlerts from '../components/StockAlerts'
+import { inventoryItems, recentMovements } from '../data/inventory'
 import { useInventorySummary } from '../hooks/useInventorySummary'
 import '../styles/dashboard.css'
 
 function DashboardPage() {
   const summary = useInventorySummary(inventoryItems)
+  const lowStockItems = inventoryItems.filter((item) => item.quantity <= item.minimum)
 
   const cards = [
     {
-      label: 'Itens cadastrados',
+      label: 'Produtos cadastrados',
       value: summary.totalItems,
-      caption: 'Materiais diferentes no catálogo',
+      caption: 'Produtos no catálogo',
       icon: Boxes,
       tone: 'blue',
     },
     {
       label: 'Unidades em estoque',
       value: summary.totalUnits.toLocaleString('pt-BR'),
-      caption: 'Quantidade total disponível',
+      caption: 'Unidades disponíveis no estoque',
       icon: Package,
       tone: 'green',
     },
     {
-      label: 'Estoque baixo',
+      label: 'Produtos com estoque baixo',
       value: summary.lowStock,
-      caption: 'Itens precisam de atenção',
+      caption: 'Abaixo do estoque mínimo',
       icon: TriangleAlert,
       tone: 'amber',
     },
     {
-      label: 'Movimentações hoje',
-      value: '—',
-      caption: 'Entradas e saídas do dia',
-      icon: ArrowUpFromLine,
+      label: 'Movimentações realizadas',
+      value: recentMovements.length,
+      caption: 'Entradas e saídas recentes',
+      icon: ArrowLeftRight,
       tone: 'purple',
     },
   ]
@@ -48,12 +51,9 @@ function DashboardPage() {
         <DashboardHeader />
         <div className="dashboard-content">
           <section className="welcome-section">
-            <div>
-              <p className="eyebrow">PAINEL DE CONTROLE</p>
-              <h1>Visão geral</h1>
-              <p className="welcome-copy">
-                Acompanhe os materiais e a situação do seu almoxarifado.
-              </p>
+            <div className="welcome-heading">
+              <span className="eyebrow">RESUMO DO ALMOXARIFADO</span>
+              <span className="welcome-date">Acompanhe seus produtos e movimentações em um só lugar.</span>
             </div>
             <button className="primary-button" type="button">
               <ArrowDownToLine size={17} />
@@ -65,20 +65,26 @@ function DashboardPage() {
             {cards.map((card) => <SummaryCard key={card.label} {...card} />)}
           </section>
 
-          <section className="inventory-panel">
-            <div className="panel-heading">
-              <div>
-                <h2>Materiais em estoque</h2>
-                <p>Resumo dos itens cadastrados no almoxarifado</p>
+          <div className="dashboard-grid">
+            <section className="content-panel inventory-panel" id="estoque">
+              <div className="section-heading inventory-heading">
+                <div>
+                  <h2>Estoque recente</h2>
+                  <p>Acompanhe os níveis dos produtos cadastrados</p>
+                </div>
+                <button className="text-button" type="button">Ver todos</button>
               </div>
-              <button className="text-button" type="button">Ver todos</button>
+              <InventoryTable items={inventoryItems} />
+              <div className="panel-footer">
+                <span>Exibindo {inventoryItems.length} produtos</span>
+                <span className="footer-note">Dados de demonstração</span>
+              </div>
+            </section>
+            <div className="side-panels">
+              <StockAlerts items={lowStockItems} />
+              <RecentMovements movements={recentMovements} />
             </div>
-            <InventoryTable items={inventoryItems} />
-            <div className="panel-footer">
-              <span>Exibindo {inventoryItems.length} materiais</span>
-              <span className="footer-note"><ArrowUpFromLine size={14} /> Dados de demonstração</span>
-            </div>
-          </section>
+          </div>
         </div>
       </main>
     </div>

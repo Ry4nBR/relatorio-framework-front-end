@@ -10,9 +10,10 @@ function InventoryTable({ items }) {
       <table className="inventory-table">
         <thead>
           <tr>
-            <th scope="col">Material</th>
+            <th scope="col">Produto</th>
             <th scope="col">Categoria</th>
             <th scope="col">Quantidade</th>
+            <th scope="col">Estoque mínimo</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
@@ -29,6 +30,7 @@ function InventoryTable({ items }) {
               </td>
               <td className="muted-cell">{item.category}</td>
               <td className="quantity-cell">{item.quantity} <span>{item.unit}</span></td>
+              <td className="muted-cell">{item.minimum} <span>{item.unit}</span></td>
               <td>
                 <span className={`status-badge status-${item.status}`}>
                   <span className="status-dot" />

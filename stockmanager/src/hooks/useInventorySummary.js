@@ -3,7 +3,7 @@ export function useInventorySummary(items) {
     (summary, item) => {
       summary.totalItems += 1
       summary.totalUnits += item.quantity
-      if (item.status === 'low' || item.status === 'out') {
+      if (item.quantity <= item.minimum) {
         summary.lowStock += 1
       }
       return summary
