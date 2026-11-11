@@ -120,7 +120,6 @@ function MovementFormModal({ products, onClose, onSave }) {
               name="quantity"
               type="number"
               min="1"
-              max={type === 'saida' ? selectedProduct?.quantity : undefined}
               step="1"
               value={quantity}
               onChange={(event) => {
