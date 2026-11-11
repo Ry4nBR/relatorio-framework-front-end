@@ -4,6 +4,16 @@ Dashboard web para acompanhar o estoque de materiais de escritório.
 
 ## Executar localmente
 
+Na raiz do repositório, no PowerShell:
+
+```powershell
+Set-Location .\projeto\dashboard-almoxarifado
+npm install
+npm run dev
+```
+
+Ou execute os comandos npm abaixo diretamente nesta pasta:
+
 ```bash
 npm install
 npm run dev
