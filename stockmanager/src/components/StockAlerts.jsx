@@ -1,4 +1,5 @@
 import { AlertTriangle, ArrowRight } from 'lucide-react'
+import { getStockStatus } from '../data/productUtils'
 
 function StockAlerts({ items }) {
   return (
@@ -22,8 +23,8 @@ function StockAlerts({ items }) {
                 <strong>{item.name}</strong>
                 <span>{item.quantity} {item.unit} disponíveis · mínimo {item.minimum}</span>
               </span>
-              <span className={`alert-level ${item.status === 'out' ? 'alert-level-out' : ''}`}>
-                {item.status === 'out' ? 'Esgotado' : 'Baixo'}
+              <span className={`alert-level ${getStockStatus(item) === 'out' ? 'alert-level-out' : ''}`}>
+                {getStockStatus(item) === 'out' ? 'Esgotado' : 'Baixo'}
               </span>
             </li>
           ))}

@@ -7,35 +7,59 @@ import {
 } from 'lucide-react'
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '#dashboard', active: true },
-  { label: 'Produtos', icon: Package, href: '#estoque' },
+  { label: 'Dashboard', icon: LayoutDashboard, page: 'dashboard' },
+  { label: 'Produtos', icon: Package, page: 'products' },
   { label: 'Movimentações', icon: ArrowLeftRight, href: '#movimentacoes' },
   { label: 'Relatórios', icon: BarChart3, href: '#relatorios' },
 ]
 
-function AppSidebar() {
+function AppSidebar({ activePage, onNavigate }) {
   return (
     <aside className="sidebar">
-      <a className="brand" href="#dashboard" aria-label="StockManager, página inicial">
+      <button
+        className="brand"
+        type="button"
+        onClick={() => onNavigate('dashboard')}
+        aria-label="StockManager, página inicial"
+      >
         <span className="brand-mark">
           <Package size={21} />
         </span>
         <span>StockManager</span>
-      </a>
+      </button>
 
       <div className="sidebar-section-label">MENU</div>
       <nav className="sidebar-nav" aria-label="Navegação principal">
-        {navigationItems.map(({ label, icon: Icon, href, active }) => (
-          <a
-            className={`nav-link${active ? ' nav-link-active' : ''}`}
-            href={href}
-            key={label}
-            aria-current={active ? 'page' : undefined}
-          >
-            <Icon size={18} strokeWidth={1.9} />
-            <span>{label}</span>
-          </a>
-        ))}
+        {navigationItems.map(({ label, icon: Icon, page, href }) => {
+          const isActive = activePage === page
+          const content = (
+            <>
+              <Icon size={18} strokeWidth={1.9} />
+              <span>{label}</span>
+            </>
+          )
+
+          return page ? (
+            <button
+              className={`nav-link${isActive ? ' nav-link-active' : ''}`}
+              type="button"
+              key={label}
+              onClick={() => onNavigate(page)}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {content}
+            </button>
+          ) : (
+            <a
+              className="nav-link"
+              href={href}
+              key={label}
+              onClick={() => onNavigate('dashboard')}
+            >
+              {content}
+            </a>
+          )
+        })}
       </nav>
 
       <div className="sidebar-bottom">

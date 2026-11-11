@@ -5,13 +5,13 @@ import InventoryTable from '../components/InventoryTable'
 import RecentMovements from '../components/RecentMovements'
 import SummaryCard from '../components/SummaryCard'
 import StockAlerts from '../components/StockAlerts'
-import { inventoryItems, recentMovements } from '../data/inventory'
+import { recentMovements } from '../data/inventory'
 import { useInventorySummary } from '../hooks/useInventorySummary'
 import '../styles/dashboard.css'
 
-function DashboardPage() {
-  const summary = useInventorySummary(inventoryItems)
-  const lowStockItems = inventoryItems.filter((item) => item.quantity <= item.minimum)
+function DashboardPage({ products, activePage, onNavigate }) {
+  const summary = useInventorySummary(products)
+  const lowStockItems = products.filter((item) => item.quantity <= item.minimum)
 
   const cards = [
     {
@@ -46,7 +46,7 @@ function DashboardPage() {
 
   return (
     <div className="app-shell" id="dashboard">
-      <AppSidebar />
+      <AppSidebar activePage={activePage} onNavigate={onNavigate} />
       <main className="main-panel">
         <DashboardHeader />
         <div className="dashboard-content">
@@ -72,11 +72,11 @@ function DashboardPage() {
                   <h2>Estoque recente</h2>
                   <p>Acompanhe os níveis dos produtos cadastrados</p>
                 </div>
-                <button className="text-button" type="button">Ver todos</button>
+                <button className="text-button" type="button" onClick={() => onNavigate('products')}>Ver todos</button>
               </div>
-              <InventoryTable items={inventoryItems} />
+              <InventoryTable items={products} />
               <div className="panel-footer">
-                <span>Exibindo {inventoryItems.length} produtos</span>
+                <span>Exibindo {products.length} produtos</span>
                 <span className="footer-note">Dados de demonstração</span>
               </div>
             </section>

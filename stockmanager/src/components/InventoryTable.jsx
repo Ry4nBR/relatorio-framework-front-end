@@ -1,3 +1,5 @@
+import { getStockStatus } from '../data/productUtils'
+
 const statusLabels = {
   ok: 'Em estoque',
   low: 'Estoque baixo',
@@ -18,27 +20,31 @@ function InventoryTable({ items }) {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <div className="material-cell">
-                  <span className={`material-avatar material-avatar-${item.color}`}>
-                    {item.initials}
+          {items.map((item) => {
+            const status = getStockStatus(item)
+
+            return (
+              <tr key={item.id}>
+                <td>
+                  <div className="material-cell">
+                    <span className={`material-avatar material-avatar-${item.color}`}>
+                      {item.initials}
+                    </span>
+                    <span className="material-name">{item.name}</span>
+                  </div>
+                </td>
+                <td className="muted-cell">{item.category}</td>
+                <td className="quantity-cell">{item.quantity} <span>{item.unit}</span></td>
+                <td className="muted-cell">{item.minimum} <span>{item.unit}</span></td>
+                <td>
+                  <span className={`status-badge status-${status}`}>
+                    <span className="status-dot" />
+                    {statusLabels[status]}
                   </span>
-                  <span className="material-name">{item.name}</span>
-                </div>
-              </td>
-              <td className="muted-cell">{item.category}</td>
-              <td className="quantity-cell">{item.quantity} <span>{item.unit}</span></td>
-              <td className="muted-cell">{item.minimum} <span>{item.unit}</span></td>
-              <td>
-                <span className={`status-badge status-${item.status}`}>
-                  <span className="status-dot" />
-                  {statusLabels[item.status]}
-                </span>
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

@@ -6,12 +6,12 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
   year: 'numeric',
 }).format(new Date())
 
-function DashboardHeader() {
+function DashboardHeader({ title = 'Dashboard', subtitle = 'Visão geral do almoxarifado' }) {
   return (
     <header className="topbar">
       <div className="topbar-title">
-        <h1>Dashboard</h1>
-        <p>Visão geral do almoxarifado</p>
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
       </div>
       <div className="topbar-actions">
         <label className="search-field">
